@@ -12,7 +12,7 @@ from .data import sweden_runic_inscription_filename
 __author__ = ["Clément Besnier <clemsciences@aol.com>", ]
 
 
-def retrieve_sweden_runic_inscription():
+def retrieve_sweden_runic_inscriptions():
     site = "http://runes.verbix.com/index.html"
     rrunes = requests.get(site)
     tree = html.fromstring(rrunes.text)
@@ -27,15 +27,17 @@ def retrieve_sweden_runic_inscription():
         runes[link] = content
         print(content)
         time.sleep(1)
-    with open("sweden_runes.json", "w") as f:
+    with open(sweden_runic_inscription_filename, "w") as f:
         json.dump(runes, f)
 
-    with open("sweden_runes.json", "r") as f:
+
+def read_sweden_runic_inscriptions():
+    with open(sweden_runic_inscription_filename, "r") as f:
         loaded_runes = json.load(f)
 
     print(loaded_runes.keys())
 
 
 if __name__ == "__main__":
-    retrieve_sweden_runic_inscription()
-    sweden_runic_inscription_filename()
+    retrieve_sweden_runic_inscriptions()
+    read_sweden_runic_inscriptions()
